@@ -33,10 +33,16 @@ add_executable(
 
 add_dependencies(unit_tests catch)
 
+if(BUILD_SHARED_LIBS)
+    set(cppzmq_target cppzmq)
+else()
+    set(cppzmq_target cppzmq-static)
+endif()
+
 target_include_directories(unit_tests PUBLIC ${CATCH_MODULE_PATH})
 target_link_libraries(
     unit_tests
-    PRIVATE cppzmq
+    PRIVATE ${cppzmq_target}
     PRIVATE ${CMAKE_THREAD_LIBS_INIT}
 )
 
